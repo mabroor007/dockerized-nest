@@ -21,6 +21,8 @@ services:
       DBUSER: postgres
       DB: test
       DBPORT: 5432
+    volumes:
+      - .:/app
     ports:
       - '4000:4000'
     depends_on:

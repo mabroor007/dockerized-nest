@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
+import { User } from './user.entity';
 
 // Env
 const DBHOST = process.env.DBHOST || 'localhost';
@@ -19,11 +21,13 @@ const DBPORT = process.env.DBPORT || 5432;
       username: DBUSER,
       password: DBPASSWORD,
       database: DB,
-      entities: [],
+      entities: [User],
       synchronize: true,
     }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private connection: Connection) {}
+}
